@@ -11,7 +11,7 @@ RoleLens is a locally run Chrome extension that turns a LinkedIn job description
 
 The extension reads the visible job description (or accepts pasted text) and sends it to a local FastAPI backend. The backend calls Groq for structured analysis, checks quoted details against the source text, and returns results for the extension to display and highlight. For resume comparison, it extracts text from a local PDF and analyzes it alongside the job description.
 
-<img width="460" height="840" alt="image" src="https://github.com/user-attachments/assets/2c810855-f962-46b5-9654-38214f692559" />
+<img width="445" height="812" alt="image" src="https://github.com/user-attachments/assets/c5381f19-7bed-4270-92cd-8da2b7e508a7" />
 <img width="428" height="878" alt="image" src="https://github.com/user-attachments/assets/0acbd311-bad6-47cd-b9ff-cfb5c6fdc331" />
 <img width="555" height="810" alt="image" src="https://github.com/user-attachments/assets/7ee2aa8a-19f7-45b3-8763-68803376d297" />
 
