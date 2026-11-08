@@ -10,8 +10,12 @@ RoleLens is a locally run Chrome extension that turns a LinkedIn job description
 
 ## How it works
 
-The extension reads the visible job description (or accepts pasted text) and sends it to a local FastAPI backend. The backend calls Groq for structured analysis, checks quoted details against the source text, and returns results
-for the extension to display and highlight. For resume comparison, it extracts text from a local PDF and analyzes it alongside the job description.
+The extension reads the visible job description (or accepts pasted text) and sends it to a local FastAPI backend. The backend calls Groq for structured analysis, checks quoted details against the source text, and returns results for the extension to display and highlight. For resume comparison, it extracts text from a local PDF and analyzes it alongside the job
+description.
+<img width="460" height="840" alt="image" src="https://github.com/user-attachments/assets/2c810855-f962-46b5-9654-38214f692559" />
+<img width="428" height="878" alt="image" src="https://github.com/user-attachments/assets/0acbd311-bad6-47cd-b9ff-cfb5c6fdc331" />
+<img width="647" height="967" alt="image" src="https://github.com/user-attachments/assets/e5e9c2a2-a646-4b07-8ce2-17d0c23d0ac1" />
+
 
 The AI is Groq-hosted **OpenAI GPT-OSS 20B** by default, with **GPT-OSS 120B** as a rate-limit fallback. Prompts request grounded JSON; there is no fine-tuning, embedding model, vector database, or retrieval corpus.
 
@@ -52,15 +56,11 @@ Requirements: Python 3.11+, Node.js 20+, Chrome, and a Groq API key.
    ```powershell
    uvicorn app.main:app --host 127.0.0.1 --port 8001 --reload
    ```
-3. Open a LinkedIn job, click RoleLens, and analyze it. Optionally upload a
-   text-based PDF resume to compare it with the analyzed role.
+3. Open a LinkedIn job, click RoleLens, and analyze it. Optionally upload a text-based PDF resume to compare it with the analyzed role.
 
 ## Privacy
 
-The API listens on your computer; no public hosting is required. Job text is
-sent to Groq for analysis. Resume PDFs stay in the local, Git-ignored
-`backend/data/` folder, but comparison sends the extracted resume text and job
-description to Groq. Scanned PDFs are not supported.
+The API listens on your computer; no public hosting is required. Job text is sent to Groq for analysis. Resume PDFs stay in the local, Git-ignored `backend/data/` folder, but comparison sends the extracted resume text and job description to Groq. Scanned PDFs are not supported.
 
 ## Checks
 
