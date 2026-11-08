@@ -1,5 +1,4 @@
-# RoleLens | AI Job Search Assistant
-
+# Linkedin-Job-Analyser-Chrome Extension
 ## Problem
 
 Reviewing long job descriptions and comparing them with a resume is repetitive. Key requirements—such as must-have skills, experience, salary, and preferred qualifications—can be easy to miss.
