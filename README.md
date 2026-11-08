@@ -14,7 +14,6 @@ The extension reads the visible job description (or accepts pasted text) and sen
 description.
 <img width="460" height="840" alt="image" src="https://github.com/user-attachments/assets/2c810855-f962-46b5-9654-38214f692559" />
 <img width="428" height="878" alt="image" src="https://github.com/user-attachments/assets/0acbd311-bad6-47cd-b9ff-cfb5c6fdc331" />
-<img width="647" height="967" alt="image" src="https://github.com/user-attachments/assets/e5e9c2a2-a646-4b07-8ce2-17d0c23d0ac1" />
 
 
 The AI is Groq-hosted **OpenAI GPT-OSS 20B** by default, with **GPT-OSS 120B** as a rate-limit fallback. Prompts request grounded JSON; there is no fine-tuning, embedding model, vector database, or retrieval corpus.
