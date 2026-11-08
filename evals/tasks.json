@@ -1,0 +1,42 @@
+[
+  {
+    "id": "explicit-salary-and-requirements",
+    "description": "Required: Python and SQL. Preferred: Kubernetes. Minimum 5 years of experience. Salary: $120,000-$150,000 per year."
+  },
+  {
+    "id": "salary-not-mentioned",
+    "description": "Join our customer support team to resolve customer issues, document solutions, and work with product teams. Strong written communication is required."
+  },
+  {
+    "id": "salary-ambiguous",
+    "description": "The role supports a product with a $2 million annual revenue target and includes an annual performance bonus. Compensation details will be discussed during interviews."
+  },
+  {
+    "id": "experience-level-without-years",
+    "description": "We are looking for a senior engineer to lead design reviews and mentor teammates. Experience with distributed systems is required. No years-of-experience range is listed."
+  },
+  {
+    "id": "preferred-versus-required",
+    "description": "Must have production Python experience. Go is preferred, and Kubernetes is a nice to have. You will build and maintain backend services."
+  },
+  {
+    "id": "salary-with-location-amounts",
+    "description": "This role is based in New York. The annual salary range is $140,000 to $180,000 USD. The company offers a $1,000 learning stipend."
+  },
+  {
+    "id": "conflicting-experience",
+    "description": "The qualifications section asks for 3+ years of experience. A later summary says 5 years preferred. The role requires clear stakeholder communication."
+  },
+  {
+    "id": "no-skill-requirements",
+    "description": "Help coordinate project schedules, prepare meeting notes, and communicate status updates. This posting does not specify mandatory technical skills."
+  },
+  {
+    "id": "long-job-description",
+    "description": "Analyze a long posting with role overview, responsibilities, qualifications, benefits, and equal opportunity text. Verify the extension analyzes no more than its documented input limit and highlights exact requirements."
+  },
+  {
+    "id": "page-extraction-fallback",
+    "description": "Verify pasted job text is analyzed when the LinkedIn page structure does not match the content-script selectors. Page highlighting should be unavailable for pasted text."
+  }
+]

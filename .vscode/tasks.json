@@ -1,0 +1,341 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Backend: run tests",
+			"type": "process",
+			"command": "python",
+			"args": [
+				"-m",
+				"pytest",
+				"tests"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\backend"
+			},
+			"group": "test",
+			"problemMatcher": []
+		},
+		{
+			"label": "Backend: start API",
+			"type": "process",
+			"command": "python",
+			"args": [
+				"-m",
+				"uvicorn",
+				"app.main:app",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8001",
+				"--reload"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\backend"
+			},
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Extension: typecheck",
+			"type": "process",
+			"command": "npm",
+			"args": [
+				"run",
+				"typecheck"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\extension"
+			},
+			"group": "test",
+			"problemMatcher": []
+		},
+		{
+			"label": "Extension: build",
+			"type": "process",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\extension"
+			},
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Backend: inspect local readiness",
+			"type": "shell",
+			"command": "c:/Users/sushm/Downloads/GCP extension/.venv-1/Scripts/python.exe",
+			"args": [
+				"-c",
+				"from app.config import get_settings; s=get_settings(); print('GROQ_API_KEY configured:', bool(s.groq_api_key.strip())); import chromadb; c=chromadb.PersistentClient(path='./data/chroma').get_or_create_collection('google_cloud_docs'); print('Google Cloud docs collection chunks:', c.count())"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Backend: inspect local readiness safe",
+			"type": "shell",
+			"command": "c:/Users/sushm/Downloads/GCP extension/.venv-1/Scripts/python.exe",
+			"args": [
+				"-c",
+				"from app.config import get_settings; s=get_settings(); print(\"GROQ_API_KEY configured:\", bool(s.groq_api_key.strip())); import chromadb; c=chromadb.PersistentClient(path=\"./data/chroma\").get_or_create_collection(\"google_cloud_docs\"); print(\"Google Cloud docs collection chunks:\", c.count())"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Backend: check readiness status",
+			"type": "shell",
+			"command": "c:/Users/sushm/Downloads/GCP extension/.venv-1/Scripts/python.exe",
+			"args": [
+				"-c",
+				"from app.config import get_settings; s=get_settings(); from app.rag import COLLECTION_NAME; import chromadb; print(bool(s.groq_api_key.strip())); print(chromadb.PersistentClient(path=s.chroma_path).get_or_create_collection(COLLECTION_NAME).count())"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Backend: safe readiness check",
+			"type": "shell",
+			"command": "c:/Users/sushm/Downloads/GCP extension/.venv-1/Scripts/python.exe",
+			"args": [
+				"-c",
+				"import os; os.chdir(os.path.join(os.getcwd(),bytes([98,97,99,107,101,110,100]).decode())); from app.config import get_settings; s=get_settings(); from app.rag import COLLECTION_NAME; import chromadb; print(bool(s.groq_api_key.strip())); print(chromadb.PersistentClient(path=s.chroma_path).get_or_create_collection(COLLECTION_NAME).count())"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Backend: index 100 docs safely",
+			"type": "shell",
+			"command": "c:/Users/sushm/Downloads/GCP extension/.venv-1/Scripts/python.exe",
+			"args": [
+				"-c",
+				"import os; os.chdir(os.path.join(os.getcwd(),bytes([98,97,99,107,101,110,100]).decode())); import httpx; from itertools import islice; from app.ingest import discover_pages,_request,clean_page,_chunk_id; from app.doc_sources import USER_AGENT,GOOGLE_CLOUD_HOSTS; from app.rag_chunks import split_sections; from app.rag import RagStore; store=RagStore(); client=httpx.Client(timeout=30,follow_redirects=True,headers=dict([(bytes([85,115,101,114,45,65,103,101,110,116]).decode(),USER_AGENT)])); docs=[{bytes([105,100]).decode():_chunk_id(page.url,i),bytes([116,101,120,116]).decode():chunk,bytes([116,105,116,108,101]).decode():title or page.url,bytes([117,114,108]).decode():page.url} for page in islice(discover_pages(client),100) for response in [_request(client,page.url)] if response.url.host in GOOGLE_CLOUD_HOSTS for title,content in [clean_page(response.text)] if content for i,chunk in enumerate(split_sections(title or page.url,content))]; store.add_documents(docs); client.close(); print(len(docs))"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run backend pytest",
+			"type": "shell",
+			"command": "C:\\Users\\sushm\\Downloads\\GCP extension\\.venv-1\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"backend\\tests"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm run typecheck (extension)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"C:\\Users\\sushm\\Downloads\\GCP extension\\extension",
+				"run",
+				"typecheck"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$tsc"
+			]
+		},
+		{
+			"label": "npm run build (extension)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"C:\\Users\\sushm\\Downloads\\GCP extension\\extension",
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "PathFinder LinkedIn backend tests final",
+			"type": "shell",
+			"command": "C:\\Users\\sushm\\Downloads\\GCP extension\\.venv-1\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"backend\\tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "RemoveConfirmedCloudDocsData-20261108-1444",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$ErrorActionPreference = 'Stop'; $root = (Resolve-Path -LiteralPath 'C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data').Path; $targets = @('C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data\\source', 'C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data\\chroma'); foreach ($target in $targets) { $resolved = (Resolve-Path -LiteralPath $target).Path; if ((Split-Path -LiteralPath $resolved -Parent) -ne $root) { throw \"Refusing: resolved path is not a direct child of data: $resolved\" }; if (-not (Get-Item -LiteralPath $resolved).PSIsContainer) { throw \"Refusing: target is not a directory: $resolved\" }; Write-Output \"Verified direct child: $resolved\" }; foreach ($target in $targets) { $resolved = (Resolve-Path -LiteralPath $target).Path; Write-Output \"Contents of $resolved\"; Get-ChildItem -LiteralPath $resolved -Force -Recurse | Select-Object FullName, Mode, Length | Format-Table -AutoSize | Out-String -Width 240 | Write-Output }; Remove-Item -LiteralPath $targets -Recurse -Force; Write-Output 'Resulting state:'; foreach ($target in $targets) { if (Test-Path -LiteralPath $target) { throw \"Deletion verification failed: $target still exists\" } else { Write-Output \"Absent: $target\" } }; if (-not (Test-Path -LiteralPath $root -PathType Container)) { throw 'backend\\data itself is missing' }; Write-Output \"Preserved: $root\""
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Remove verified obsolete backend data folders 20261108-1445",
+			"type": "shell",
+			"command": "C:\\Users\\sushm\\Downloads\\GCP extension\\.venv-1\\Scripts\\python.exe",
+			"args": [
+				"-c",
+				"from pathlib import Path\nimport shutil\nparent = Path(r'C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data').resolve(strict=True)\nraw_paths = [Path(r'C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data\\source'), Path(r'C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data\\chroma')]\nverified = []\nfor raw in raw_paths:\n    if raw.is_symlink():\n        raise RuntimeError(f'Refusing symlink target: {raw}')\n    resolved = raw.resolve(strict=True)\n    if resolved.parent != parent:\n        raise RuntimeError(f'Refusing path with unexpected direct parent: {resolved.parent}')\n    if resolved != raw or not resolved.is_dir():\n        raise RuntimeError(f'Refusing unexpected or non-directory target: {resolved}')\n    entries = list(resolved.rglob('*'))\n    links = [entry for entry in entries if entry.is_symlink()]\n    if links:\n        raise RuntimeError(f'Refusing target containing symlinks: {links}')\n    verified.append((resolved, [entry for entry in entries if entry.is_file()]))\nfor folder, files in verified:\n    print(f'Contents of {folder}:')\n    for filename in files:\n        print(filename.relative_to(folder))\nfor folder, _ in verified:\n    shutil.rmtree(folder)\n    print(f'Removed {folder}')"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Remove verified obsolete data folders 20261108-1445",
+			"type": "shell",
+			"command": "C:\\Users\\sushm\\Downloads\\GCP extension\\.venv-1\\Scripts\\python.exe",
+			"args": [
+				"-c",
+				"from pathlib import Path\nimport os, shutil\nparent = Path(r'C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data').resolve(strict=True)\ntargets = [Path(r'C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data\\source'), Path(r'C:\\Users\\sushm\\Downloads\\GCP extension\\backend\\data\\chroma')]\nresolved = []\nfor original in targets:\n    if original.is_symlink():\n        raise RuntimeError(f'Refusing symlink target: {original}')\n    target = original.resolve(strict=True)\n    if target.parent != parent:\n        raise RuntimeError(f'Refusing target with unexpected direct parent: {target}')\n    if not target.is_dir():\n        raise RuntimeError(f'Refusing non-directory target: {target}')\n    for root, dirs, files in os.walk(target, followlinks=False):\n        for name in dirs + files:\n            entry = Path(root) / name\n            if entry.is_symlink():\n                raise RuntimeError(f'Refusing tree containing symlink: {entry}')\n    resolved.append(target)\nfor target in resolved:\n    print(f'Contents of {target}:')\n    for root, dirs, files in os.walk(target, followlinks=False):\n        for name in files:\n            print(Path(root, name).relative_to(target))\nfor target in resolved:\n    shutil.rmtree(target)\n    print(f'Removed: {target}')"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "PathFinder local API health/config check",
+			"type": "shell",
+			"command": "C:\\Users\\sushm\\Downloads\\GCP extension\\.venv-1\\Scripts\\python.exe",
+			"args": [
+				"-c",
+				"import sys; sys.path.insert(0, 'backend'); from app.config import get_settings; s=get_settings(); print('GROQ_API_KEY configured:', bool(s.groq_api_key.strip())); print('Extension origin configured:', s.extension_origin.startswith('chrome-extension://') and 'replace-with' not in s.extension_origin); import urllib.request; exec(\"try:\\n r=urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=2); print('Existing backend health:', r.status, r.read().decode())\\nexcept Exception as e:\\n print('Existing backend unavailable:', type(e).__name__)\")"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "PathFinder local API configuration check",
+			"type": "shell",
+			"command": "C:\\Users\\sushm\\Downloads\\GCP extension\\.venv-1\\Scripts\\python.exe",
+			"args": [
+				"-c",
+				"import sys; sys.path.insert(0, \"backend\"); from app.config import get_settings; s=get_settings(); print(\"GROQ_API_KEY configured:\", bool(s.groq_api_key.strip())); print(\"Extension origin configured:\", s.extension_origin.startswith(\"chrome-extension://\") and \"replace-with\" not in s.extension_origin)"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Start PathFinder local backend",
+			"type": "shell",
+			"command": "Set-Location backend; & '..\\.venv-1\\Scripts\\python.exe' -m uvicorn app.main:app --host 127.0.0.1 --port 8001",
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify PathFinder backend health",
+			"type": "shell",
+			"command": "Invoke-RestMethod -Uri http://127.0.0.1:8001/health -TimeoutSec 5",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "gcp-linkedin-typecheck-build-20261108-1456",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/s",
+				"/c",
+				"cd /d \"C:\\Users\\sushm\\Downloads\\GCP extension\\extension\" && npm run typecheck & npm run build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "gcp-extension-typecheck-build-20261108-1458",
+			"type": "shell",
+			"command": "C:\\Users\\sushm\\Downloads\\GCP extension\\.venv-1\\Scripts\\python.exe",
+			"args": [
+				"-c",
+				"import subprocess; from pathlib import Path; cwd=Path(r'C:\\Users\\sushm\\Downloads\\GCP extension\\extension'); a=subprocess.run(['npm.cmd','run','typecheck'],cwd=cwd,capture_output=True,text=True); print(a.stdout); print(a.stderr); print('typecheck exit',a.returncode); b=subprocess.run(['npm.cmd','run','build'],cwd=cwd,capture_output=True,text=True); print(b.stdout); print(b.stderr); print('build exit',b.returncode); raise SystemExit(a.returncode or b.returncode)"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "PathFinder LinkedIn extension final build",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"typecheck"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Verify LinkedIn typecheck latest source",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"extension",
+				"run",
+				"typecheck"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Build LinkedIn extension latest source",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"extension",
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Check local analyzer API",
+			"type": "shell",
+			"command": "Invoke-RestMethod",
+			"args": [
+				"-Uri",
+				"http://127.0.0.1:8001/health",
+				"-TimeoutSec",
+				"5"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Temporary inspect active backend PID",
+			"type": "shell",
+			"command": "Get-NetTCPConnection -LocalPort 8001 -State Listen | Select-Object -ExpandProperty OwningProcess",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Temporary identify active backend",
+			"type": "shell",
+			"command": "Get-CimInstance Win32_Process | Where-Object { $_.ProcessId -eq 42980 } | Select-Object ProcessId,ParentProcessId,CommandLine | Format-List",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

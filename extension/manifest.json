@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "RoleLens | LinkedIn Job Analyzer",
+  "version": "0.2.0",
+  "description": "Analyze LinkedIn job descriptions, highlight key requirements, and compare with your resume.",
+  "permissions": ["sidePanel", "activeTab", "storage", "tabs", "scripting"],
+  "host_permissions": ["http://localhost:8001/*", "http://127.0.0.1:8001/*", "https://www.linkedin.com/*", "https://linkedin.com/*"],
+  "background": {
+    "service_worker": "src/background.ts",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "src/sidepanel.html"
+  },
+  "action": {
+    "default_title": "Analyze LinkedIn job"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.linkedin.com/*", "https://linkedin.com/*"],
+      "js": ["src/content.ts"],
+      "run_at": "document_idle"
+    }
+  ]
+}

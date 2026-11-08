@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RoleLens | LinkedIn Job Analyzer</title>
+    <link rel="stylesheet" href="./sidepanel.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>RoleLens</h1>
+        <p>Understand the job before you apply.</p>
+      </header>
+      <details>
+        <summary>Backend connection</summary>
+        <label for="backend">Local backend URL</label>
+        <input id="backend" type="url" value="http://localhost:8001" />
+      </details>
+      <label for="description">Job description</label>
+      <textarea id="description" rows="8" placeholder="Open a LinkedIn job and analyze the page, or paste its full description here."></textarea>
+      <p class="privacy-note">Analysis sends the job text to Groq. RoleLens does not save descriptions.</p>
+      <button id="analyze-button" type="button">Analyze this job</button>
+      <p id="status" role="status" aria-live="polite"></p>
+      <section class="resume-panel" aria-labelledby="resume-heading">
+        <h2 id="resume-heading">Your resume</h2>
+        <p class="privacy-note">A text-based PDF is saved locally in the backend. Comparison sends its extracted text and the job description to Groq.</p>
+        <label for="resume-file">Upload or replace resume (PDF, max 8 MB)</label>
+        <input id="resume-file" type="file" accept="application/pdf,.pdf" />
+        <div class="button-row">
+          <button id="upload-resume-button" class="secondary" type="button">Save resume</button>
+          <button id="remove-resume-button" class="secondary" type="button" hidden>Remove</button>
+        </div>
+        <p id="resume-status" role="status" aria-live="polite">Checking saved resume…</p>
+      </section>
+      <section id="analysis" aria-live="polite" hidden>
+        <h2>Job breakdown</h2>
+        <p id="summary"></p>
+        <div class="facts">
+          <article><h3>Salary</h3><p id="salary"></p></article>
+          <article><h3>Experience</h3><p id="experience"></p></article>
+        </div>
+        <section class="result-section">
+          <h3>Compulsory skills</h3>
+          <ul id="compulsory-skills"></ul>
+        </section>
+        <section class="result-section">
+          <h3>Preferred skills</h3>
+          <ul id="preferred-skills"></ul>
+        </section>
+        <section class="result-section">
+          <h3>Other requirements</h3>
+          <ul id="other-requirements"></ul>
+        </section>
+        <button id="compare-button" type="button" disabled>Compare with resume</button>
+        <p id="compare-status" role="status" aria-live="polite"></p>
+        <section id="comparison" hidden>
+          <h2>Resume comparison</h2>
+          <p id="match-summary"></p>
+          <section class="result-section">
+            <h3>Relevant strengths in your resume</h3>
+            <ul id="resume-strengths"></ul>
+          </section>
+          <section class="result-section">
+            <h3>Not clearly evidenced</h3>
+            <ul id="resume-gaps"></ul>
+          </section>
+          <section class="result-section">
+            <h3>Relevant details to bring forward</h3>
+            <ul id="resume-additions"></ul>
+          </section>
+          <section class="result-section">
+            <h3>Suggested resume edits</h3>
+            <ul id="resume-modifications"></ul>
+          </section>
+        </section>
+        <button id="clear-button" class="secondary" type="button">Clear highlights</button>
+      </section>
+    </main>
+    <script type="module" src="./sidepanel.ts"></script>
+  </body>
+</html>
